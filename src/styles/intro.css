@@ -1,0 +1,453 @@
+﻿.intro-splash {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  color: #ffffff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  cursor: pointer;
+  contain: layout paint style;
+}
+
+/* Pure Black Split Shutters — 100% GPU translate3d */
+.intro-splash__shutter {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 50.6%;
+  background-color: #000000;
+  z-index: 0;
+  transform: translate3d(0, 0, 0);
+  transition: transform 620ms cubic-bezier(0.83, 0, 0.17, 1);
+  will-change: transform;
+}
+
+.intro-splash__shutter--top {
+  top: 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.intro-splash__shutter--bottom {
+  bottom: 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+/* Snappy Warp-Zoom Exit — transform + opacity only */
+.intro-splash--exit {
+  pointer-events: none;
+}
+
+.intro-splash--exit .intro-splash__shutter--top {
+  transform: translate3d(0, -102%, 0);
+  transition-delay: 80ms;
+}
+
+.intro-splash--exit .intro-splash__shutter--bottom {
+  transform: translate3d(0, 102%, 0);
+  transition-delay: 80ms;
+}
+
+.intro-splash--exit .intro-splash__center {
+  opacity: 0;
+  transform: scale3d(1.38, 1.38, 1);
+  transition:
+    opacity 320ms ease,
+    transform 460ms cubic-bezier(0.76, 0, 0.24, 1);
+}
+
+.intro-splash--exit .intro-splash__corners,
+.intro-splash--exit .intro-splash__footer,
+.intro-splash--exit .intro-splash__flare {
+  opacity: 0;
+  transition: opacity 200ms ease;
+}
+
+/* Laser Horizon Ignition Beam */
+.intro-splash__beam {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 50%;
+  height: 1.5px;
+  z-index: 2;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.92) 50%,
+    transparent 100%
+  );
+  transform: scaleX(0);
+  opacity: 0;
+  animation: introBeamFlash 620ms cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  will-change: transform, opacity;
+  pointer-events: none;
+}
+
+/* Single Crisp Shockwave */
+.intro-splash__shockwave {
+  position: absolute;
+  width: 140px;
+  height: 140px;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.45);
+  z-index: 1;
+  opacity: 0;
+  transform: scale3d(0.35, 0.35, 1);
+  animation: introShockwave 920ms cubic-bezier(0.16, 1, 0.3, 1) 120ms forwards;
+  will-change: transform, opacity;
+  pointer-events: none;
+}
+
+/* Radial Backlight Flare */
+.intro-splash__flare {
+  position: absolute;
+  width: min(480px, 88vw);
+  height: min(480px, 88vw);
+  border-radius: 50%;
+  z-index: 1;
+  background: radial-gradient(
+    circle,
+    rgba(255, 255, 255, 0.2) 0%,
+    rgba(255, 255, 255, 0.06) 36%,
+    transparent 68%
+  );
+  opacity: 0;
+  transform: scale3d(0.6, 0.6, 1);
+  animation: introFlareIgnite 900ms cubic-bezier(0.22, 1, 0.36, 1) 120ms forwards;
+  will-change: transform, opacity;
+  pointer-events: none;
+}
+
+/* Top Telemetry Corners */
+.intro-splash__corners {
+  position: absolute;
+  top: clamp(1.25rem, 3vw, 2rem);
+  left: var(--container-pad);
+  right: var(--container-pad);
+  max-width: var(--container-max);
+  margin-inline: auto;
+  z-index: 3;
+  display: flex;
+  justify-content: space-between;
+  font-family: var(--font-display);
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.24em;
+  color: rgba(255, 255, 255, 0.45);
+  opacity: 0;
+  animation: introFadeIn 380ms ease 180ms forwards;
+}
+
+/* Centerpiece 3D Stage */
+.intro-splash__center {
+  position: relative;
+  z-index: 3;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  perspective: 900px;
+  will-change: transform, opacity;
+}
+
+.intro-splash__stage {
+  position: relative;
+  width: clamp(210px, 34vw, 330px);
+  aspect-ratio: 1 / 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* 2 Lightweight 3D White Orbital Rings */
+.intro-splash__ring {
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+  will-change: transform, opacity;
+}
+
+.intro-splash__ring--1 {
+  inset: -10%;
+  border: 1px solid rgba(255, 255, 255, 0.32);
+  opacity: 0;
+  animation:
+    introFadeIn 420ms ease 180ms forwards,
+    introGyro1 6s linear infinite;
+}
+
+.intro-splash__ring--2 {
+  inset: 0%;
+  border: 1px dashed rgba(255, 255, 255, 0.2);
+  opacity: 0;
+  animation:
+    introFadeIn 420ms ease 260ms forwards,
+    introGyro2 8s linear infinite reverse;
+}
+
+.intro-splash__ring-node {
+  position: absolute;
+  top: -3.5px;
+  left: 50%;
+  width: 7px;
+  height: 7px;
+  margin-left: -3.5px;
+  border-radius: 50%;
+  background-color: #ffffff;
+}
+
+/* Chrome-White 3D TL Sculpture — static filter, ONLY transform+opacity animated */
+.intro-splash__sculpture-wrap {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.intro-splash__sculpture {
+  width: 96%;
+  height: 96%;
+  object-fit: contain;
+  mix-blend-mode: screen;
+  filter: invert(1) contrast(1.22) brightness(1.06);
+  opacity: 0;
+  transform: perspective(800px) rotateY(-48deg) rotateX(16deg) scale3d(0.45, 0.45, 1);
+  animation: introSculptureSlam 820ms cubic-bezier(0.22, 1.14, 0.36, 1) 120ms forwards;
+  will-change: transform, opacity;
+  user-select: none;
+  pointer-events: none;
+}
+
+/* Brand Signature — pure transform + opacity */
+.intro-splash__brand {
+  margin-top: 0.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.45rem;
+}
+
+.intro-splash__title-mask {
+  overflow: hidden;
+}
+
+.intro-splash__title {
+  display: block;
+  font-family: var(--font-display);
+  font-size: clamp(1.25rem, 2.7vw, 1.75rem);
+  font-weight: 700;
+  color: #ffffff;
+  line-height: 1.08;
+  letter-spacing: 0.34em;
+  padding-left: 0.34em;
+  opacity: 0;
+  transform: translate3d(0, 105%, 0);
+  animation: introTitleUp 600ms cubic-bezier(0.22, 1, 0.36, 1) 440ms forwards;
+  will-change: transform, opacity;
+}
+
+.intro-splash__sub {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  width: 180px;
+}
+
+.intro-splash__sub-line {
+  flex: 1;
+  height: 1px;
+  background-color: rgba(255, 255, 255, 0.45);
+  transform: scaleX(0);
+  transform-origin: center;
+  animation: introLineGrow 420ms cubic-bezier(0.22, 1, 0.36, 1) 660ms forwards;
+  will-change: transform;
+}
+
+.intro-splash__sub-text {
+  font-family: var(--font-display);
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.48em;
+  padding-left: 0.48em;
+  color: rgba(255, 255, 255, 0.78);
+  opacity: 0;
+  animation: introFadeIn 380ms ease 700ms forwards;
+}
+
+/* Bottom Progress Bar — 100% CSS GPU scaleX */
+.intro-splash__footer {
+  position: absolute;
+  left: var(--container-pad);
+  right: var(--container-pad);
+  bottom: clamp(1.25rem, 3.5vw, 2.25rem);
+  max-width: var(--container-max);
+  margin-inline: auto;
+  z-index: 3;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+  opacity: 0;
+  animation: introFadeIn 380ms ease 180ms forwards;
+}
+
+.intro-splash__caption {
+  font-size: 0.68rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.48);
+}
+
+.intro-splash__meter {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+}
+
+.intro-splash__bar {
+  width: clamp(96px, 18vw, 190px);
+  height: 1.5px;
+  background-color: rgba(255, 255, 255, 0.16);
+  overflow: hidden;
+}
+
+.intro-splash__bar-fill {
+  display: block;
+  width: 100%;
+  height: 100%;
+  background-color: #ffffff;
+  transform-origin: 0% 50%;
+  transform: scaleX(0);
+  animation: introProgressBar 1450ms cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  will-change: transform;
+}
+
+.intro-splash__percent {
+  font-family: var(--font-display);
+  font-size: 0.74rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: #ffffff;
+  min-width: 3.4ch;
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+/* GPU-Only Keyframes */
+@keyframes introFadeIn {
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes introBeamFlash {
+  0% {
+    opacity: 0;
+    transform: scaleX(0);
+  }
+  38% {
+    opacity: 1;
+    transform: scaleX(1);
+  }
+  100% {
+    opacity: 0;
+    transform: scaleX(1.06);
+  }
+}
+
+@keyframes introShockwave {
+  0% {
+    opacity: 0.8;
+    transform: scale3d(0.35, 0.35, 1);
+  }
+  100% {
+    opacity: 0;
+    transform: scale3d(4.6, 4.6, 1);
+  }
+}
+
+@keyframes introFlareIgnite {
+  0% {
+    opacity: 0;
+    transform: scale3d(0.6, 0.6, 1);
+  }
+  100% {
+    opacity: 0.9;
+    transform: scale3d(1, 1, 1);
+  }
+}
+
+@keyframes introSculptureSlam {
+  0% {
+    opacity: 0;
+    transform: perspective(800px) rotateY(-48deg) rotateX(16deg) scale3d(0.45, 0.45, 1);
+  }
+  65% {
+    opacity: 1;
+    transform: perspective(800px) rotateY(6deg) rotateX(-3deg) scale3d(1.04, 1.04, 1);
+  }
+  100% {
+    opacity: 1;
+    transform: perspective(800px) rotateY(0deg) rotateX(0deg) scale3d(1, 1, 1);
+  }
+}
+
+@keyframes introGyro1 {
+  0% {
+    transform: rotateX(68deg) rotateY(-18deg) rotateZ(0deg);
+  }
+  100% {
+    transform: rotateX(68deg) rotateY(-18deg) rotateZ(360deg);
+  }
+}
+
+@keyframes introGyro2 {
+  0% {
+    transform: rotateX(64deg) rotateY(22deg) rotateZ(0deg);
+  }
+  100% {
+    transform: rotateX(64deg) rotateY(22deg) rotateZ(360deg);
+  }
+}
+
+@keyframes introTitleUp {
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+@keyframes introLineGrow {
+  to {
+    transform: scaleX(1);
+  }
+}
+
+@keyframes introProgressBar {
+  to {
+    transform: scaleX(1);
+  }
+}
+
+/* Extra-lightweight mode on small/mobile screens */
+@media (max-width: 640px) {
+  .intro-splash__ring--2,
+  .intro-splash__caption {
+    display: none;
+  }
+
+  .intro-splash__footer {
+    justify-content: flex-end;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .intro-splash {
+    display: none;
+  }
+}
