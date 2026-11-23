@@ -3,32 +3,65 @@
   top: 0;
   z-index: 50;
   width: 100%;
+  padding-top: 0;
+  transition: padding-top 360ms var(--ease-out);
+}
+
+.navbar--island {
+  padding-top: 12px;
+}
+
+.navbar__shell {
+  position: relative;
+  width: 100%;
+  max-width: 100%;
+  margin-inline: auto;
   background-color: rgba(255, 255, 255, 0.88);
   backdrop-filter: blur(14px);
   -webkit-backdrop-filter: blur(14px);
-  border-bottom: 1px solid transparent;
-  transition: border-color var(--transition-fast), background-color var(--transition-fast), box-shadow var(--transition-fast);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.04);
+  border-radius: 0;
+  overflow: hidden;
+  transition:
+    max-width 420ms var(--ease-out),
+    border-radius 420ms var(--ease-out),
+    background-color 320ms var(--ease-out),
+    box-shadow 360ms var(--ease-out),
+    border-color 320ms var(--ease-out);
 }
 
-.navbar--scrolled {
-  background-color: rgba(255, 255, 255, 0.96);
-  border-bottom-color: var(--color-gray-200);
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
+/* Dynamic Island Floating Pill State on Scroll */
+.navbar--island .navbar__shell {
+  max-width: min(1040px, calc(100% - 2rem));
+  border-radius: var(--radius-pill);
+  background-color: rgba(255, 255, 255, 0.94);
+  border: 1px solid var(--color-gray-200);
+  box-shadow: 0 14px 36px rgba(0, 0, 0, 0.08);
 }
 
 .navbar__inner {
+  width: 100%;
+  max-width: var(--container-max);
+  margin-inline: auto;
+  padding-inline: var(--container-pad);
   display: flex;
   align-items: center;
   justify-content: space-between;
   height: 78px;
   gap: 1.5rem;
+  transition: height 360ms var(--ease-out), padding-inline 360ms var(--ease-out);
+}
+
+.navbar--island .navbar__inner {
+  height: 62px;
+  padding-inline: 1.35rem;
 }
 
 .navbar__logo {
   display: inline-flex;
   align-items: center;
   flex-shrink: 0;
-  transition: opacity var(--transition-fast);
+  transition: opacity var(--transition-fast), transform var(--transition-fast);
 }
 
 .navbar__logo:hover {
@@ -38,49 +71,109 @@
 .navbar__logo img {
   height: 36px;
   width: auto;
+  transition: height 320ms var(--ease-out);
 }
 
+.navbar--island .navbar__logo img {
+  height: 30px;
+}
+
+/* Sliding Monochrome Pill Navigation */
 .navbar__nav {
+  position: relative;
   display: flex;
   align-items: center;
-  gap: 2.15rem;
+  gap: 0.35rem;
+  padding: 4px;
+  border-radius: var(--radius-pill);
+}
+
+.navbar__pill {
+  position: absolute;
+  left: 0;
+  top: 4px;
+  bottom: 4px;
+  border-radius: var(--radius-pill);
+  background-color: var(--color-black);
+  opacity: 0;
+  pointer-events: none;
+  z-index: 0;
+  transition:
+    transform 340ms cubic-bezier(0.22, 1.12, 0.36, 1),
+    width 320ms cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 200ms ease;
+  will-change: transform, width;
 }
 
 .navbar__link {
   position: relative;
-  font-size: 0.9rem;
+  z-index: 1;
+  font-size: 0.875rem;
   font-weight: 500;
   color: var(--color-gray-600);
-  padding-block: 0.35rem;
-  transition: color var(--transition-fast);
+  padding: 0.45rem 0.95rem;
+  border-radius: var(--radius-pill);
+  transition: color 220ms var(--ease-out);
 }
 
 .navbar__link:hover,
 .navbar__link--active {
-  color: var(--color-black);
+  color: var(--color-white);
 }
 
-.navbar__link::after {
+/* Magnetic CTA with Specular Monochrome Sheen */
+.btn-magnetic {
+  position: relative;
+  overflow: hidden;
+  transition:
+    transform 220ms cubic-bezier(0.22, 1, 0.36, 1),
+    background-color var(--transition-fast),
+    box-shadow var(--transition-fast);
+  will-change: transform;
+}
+
+.btn-magnetic::after {
   content: '';
   position: absolute;
-  left: 0;
-  right: 0;
-  bottom: -2px;
-  height: 1.5px;
-  background-color: var(--color-black);
-  transform: scaleX(0);
-  transform-origin: center;
-  transition: transform var(--transition-fast);
+  inset: 0;
+  background: linear-gradient(
+    115deg,
+    transparent 30%,
+    rgba(255, 255, 255, 0.28) 50%,
+    transparent 70%
+  );
+  transform: translate3d(-120%, 0, 0);
+  transition: transform 540ms var(--ease-out);
+  pointer-events: none;
 }
 
-.navbar__link:hover::after,
-.navbar__link--active::after {
-  transform: scaleX(1);
+.btn-magnetic:hover::after {
+  transform: translate3d(120%, 0, 0);
 }
 
 .navbar__cta {
-  padding: 0.68rem 1.25rem;
-  font-size: 0.85rem;
+  padding: 0.66rem 1.25rem;
+  font-size: 0.84rem;
+}
+
+/* Scroll Progress Hairline */
+.navbar__progress-track {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 1.5px;
+  pointer-events: none;
+}
+
+.navbar__progress {
+  display: block;
+  width: 100%;
+  height: 100%;
+  background-color: var(--color-black);
+  transform-origin: 0% 50%;
+  transform: scaleX(0);
+  will-change: transform;
 }
 
 .navbar__toggle {
@@ -115,27 +208,44 @@
     display: inline-flex;
   }
 
+  .navbar--island {
+    padding-top: 8px;
+  }
+
+  .navbar--island .navbar__shell {
+    max-width: calc(100% - 1.5rem);
+  }
+
   .navbar__mobile {
     display: block;
     overflow: hidden;
     max-height: 0;
     opacity: 0;
+    margin-inline: auto;
+    max-width: calc(100% - 1.5rem);
+    border-radius: 20px;
     background-color: var(--color-white);
-    border-top: 1px solid transparent;
-    transition: max-height var(--transition-base), opacity var(--transition-fast), border-color var(--transition-fast);
+    border: 1px solid transparent;
+    transition:
+      max-height var(--transition-base),
+      opacity var(--transition-fast),
+      margin-top var(--transition-fast),
+      border-color var(--transition-fast);
   }
 
   .navbar__mobile--open {
     max-height: 440px;
     opacity: 1;
-    border-top-color: var(--color-gray-200);
+    margin-top: 8px;
+    border-color: var(--color-gray-200);
+    box-shadow: 0 18px 36px rgba(0, 0, 0, 0.08);
   }
 
   .navbar__mobile-inner {
     display: flex;
     flex-direction: column;
     gap: 0.25rem;
-    padding: 1.25rem var(--container-pad) 1.75rem;
+    padding: 1.15rem 1.35rem 1.5rem;
   }
 
   .navbar__mobile-link {
@@ -143,7 +253,7 @@
     align-items: center;
     justify-content: space-between;
     padding: 0.85rem 0.25rem;
-    font-size: 1.05rem;
+    font-size: 1.02rem;
     font-weight: 500;
     color: var(--color-ink);
     border-bottom: 1px solid var(--color-gray-150);
@@ -155,7 +265,7 @@
   }
 
   .navbar__mobile-cta {
-    margin-top: 1.15rem;
+    margin-top: 1.1rem;
     width: 100%;
     padding: 0.95rem 1.4rem;
   }
