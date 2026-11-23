@@ -1,0 +1,268 @@
+.hero {
+  position: relative;
+  overflow: hidden;
+  padding-top: clamp(2.5rem, 5vw, 4.5rem);
+  padding-bottom: clamp(3.5rem, 6vw, 5.5rem);
+  background: linear-gradient(180deg, #ffffff 0%, #fcfcfc 72%, #f4f4f4 88%, #ffffff 100%);
+}
+
+/* Subtle architectural curved backdrop arcs matching mockup */
+.hero__backdrop {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+  z-index: 0;
+}
+
+.hero__arc {
+  position: absolute;
+  border-radius: 50%;
+}
+
+.hero__arc--outer {
+  width: 680px;
+  height: 680px;
+  top: -190px;
+  right: -130px;
+  background: radial-gradient(circle at 35% 40%, rgba(0, 0, 0, 0.09) 0%, rgba(0, 0, 0, 0.03) 45%, transparent 72%);
+  border: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.hero__arc--dark {
+  width: 420px;
+  height: 420px;
+  bottom: -140px;
+  right: -110px;
+  background: radial-gradient(circle at 42% 38%, rgba(0, 0, 0, 0.88) 0%, rgba(0, 0, 0, 0.28) 54%, transparent 75%);
+  opacity: 0.22;
+}
+
+.hero__horizon {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 92px;
+  background: linear-gradient(180deg, rgba(242, 242, 242, 0.6) 0%, rgba(255, 255, 255, 1) 100%);
+  border-top: 1px solid rgba(0, 0, 0, 0.04);
+}
+
+.hero__grid {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: minmax(0, 1.08fr) minmax(0, 0.92fr);
+  align-items: center;
+  gap: clamp(2rem, 4vw, 4rem);
+  min-height: min(620px, 72vh);
+}
+
+.hero__content {
+  max-width: 600px;
+}
+
+.hero__badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  padding: 0.42rem 0.95rem;
+  border-radius: var(--radius-pill);
+  border: 1px solid var(--color-gray-200);
+  background-color: rgba(255, 255, 255, 0.92);
+  font-size: 0.78rem;
+  font-weight: 500;
+  color: var(--color-ink-soft);
+  margin-bottom: 1.6rem;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.03);
+}
+
+.hero__badge-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background-color: var(--color-black);
+  flex-shrink: 0;
+}
+
+.hero__title {
+  font-family: var(--font-display);
+  font-size: clamp(2.55rem, 5.1vw, 4.35rem);
+  font-weight: 800;
+  line-height: 1.06;
+  letter-spacing: -0.04em;
+  color: var(--color-black);
+}
+
+.hero__title-emphasis {
+  font-style: italic;
+  font-weight: 800;
+  display: inline-block;
+}
+
+.hero__description {
+  margin-top: 1.45rem;
+  font-size: clamp(0.98rem, 1.25vw, 1.08rem);
+  line-height: 1.65;
+  color: var(--color-gray-600);
+  max-width: 48ch;
+}
+
+.hero__actions {
+  margin-top: 2.15rem;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 1.25rem;
+}
+
+.hero__secondary-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-size: 0.92rem;
+  font-weight: 600;
+  color: var(--color-black);
+  padding: 0.4rem 0.6rem 0.4rem 0.2rem;
+  border-radius: var(--radius-pill);
+  transition: opacity var(--transition-fast), transform var(--transition-fast);
+}
+
+.hero__secondary-btn:hover {
+  opacity: 0.75;
+  transform: translateY(-1px);
+}
+
+.hero__play-circle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  border: 1px solid var(--color-gray-300);
+  background-color: var(--color-white);
+  transition: border-color var(--transition-fast), background-color var(--transition-fast), color var(--transition-fast);
+}
+
+.hero__secondary-btn:hover .hero__play-circle {
+  border-color: var(--color-black);
+  background-color: var(--color-black);
+  color: var(--color-white);
+}
+
+/* 3D Sculpture Visual Column */
+.hero__visual {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  perspective: 1100px;
+}
+
+.hero__sculpture-stage {
+  position: relative;
+  width: 100%;
+  max-width: 500px;
+  aspect-ratio: 1 / 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transform-style: preserve-3d;
+  transition: transform 280ms var(--ease-out);
+  will-change: transform;
+}
+
+.hero__sculpture-img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  mix-blend-mode: multiply;
+  filter: contrast(1.06);
+  animation: heroFloat 7s ease-in-out infinite;
+  user-select: none;
+  pointer-events: none;
+}
+
+/* Subtle interactive orbital accent overlay */
+.hero__orbit-svg {
+  position: absolute;
+  inset: -4%;
+  width: 108%;
+  height: 108%;
+  pointer-events: none;
+  opacity: 0.78;
+}
+
+.hero__orbit-dot {
+  transform-origin: 250px 250px;
+  animation: orbitPulse 6s ease-in-out infinite;
+}
+
+@keyframes heroFloat {
+  0%,
+  100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-9px);
+  }
+}
+
+@keyframes orbitPulse {
+  0%,
+  100% {
+    opacity: 0.9;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+@media (max-width: 960px) {
+  .hero__grid {
+    grid-template-columns: 1fr;
+    text-align: left;
+    min-height: auto;
+    gap: 2.5rem;
+  }
+
+  .hero__content {
+    max-width: 100%;
+  }
+
+  .hero__visual {
+    order: 2;
+  }
+
+  .hero__sculpture-stage {
+    max-width: 390px;
+  }
+}
+
+@media (max-width: 540px) {
+  .hero {
+    padding-top: 2rem;
+    padding-bottom: 3rem;
+  }
+
+  .hero__actions {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.85rem;
+  }
+
+  .hero__actions .btn-primary {
+    width: 100%;
+    padding: 0.95rem 1.5rem;
+  }
+
+  .hero__secondary-btn {
+    justify-content: center;
+    padding: 0.65rem 1rem;
+  }
+
+  .hero__sculpture-stage {
+    max-width: 310px;
+  }
+}
