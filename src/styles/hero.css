@@ -261,7 +261,7 @@
   height: 100%;
   object-fit: contain;
   mix-blend-mode: multiply;
-  filter: contrast(1.06);
+  filter: contrast(1.12) brightness(1.05);
   animation: heroFloat 7s ease-in-out infinite;
   will-change: transform;
   user-select: none;
@@ -280,6 +280,7 @@
     opacity: 0;
     transform: translate3d(0, 95%, 0);
   }
+
   100% {
     opacity: 1;
     transform: translate3d(0, 0, 0);
@@ -290,17 +291,20 @@
   0% {
     transform: scaleX(0);
   }
+
   100% {
     transform: scaleX(1);
   }
 }
 
 @keyframes heroDotPulse {
+
   0%,
   100% {
     transform: scale(1);
     opacity: 1;
   }
+
   50% {
     transform: scale(1.45);
     opacity: 0.45;
@@ -311,16 +315,19 @@
   0% {
     transform: rotateX(68deg) rotateY(-18deg) rotateZ(0deg);
   }
+
   100% {
     transform: rotateX(68deg) rotateY(-18deg) rotateZ(360deg);
   }
 }
 
 @keyframes heroFloat {
+
   0%,
   100% {
     transform: translate3d(0, 0, 0);
   }
+
   50% {
     transform: translate3d(0, -9px, 0);
   }
