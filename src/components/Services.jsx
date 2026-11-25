@@ -63,7 +63,10 @@ export default function Services({ onSelectService }) {
                   <span className="service-row__icon" aria-hidden="true">
                     <Icon size={20} strokeWidth={1.7} />
                   </span>
-                  <span className="service-row__title">{service.title}</span>
+                  <span className="service-row__title-wrap">
+                    <span className="service-row__title">{service.title}</span>
+                    <span className="service-row__tag">{service.deliverables[0]}</span>
+                  </span>
                 </span>
 
                 <span className="service-row__desc">{service.description}</span>

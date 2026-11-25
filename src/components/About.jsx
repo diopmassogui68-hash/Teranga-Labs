@@ -18,31 +18,44 @@ export default function About() {
       className="section about"
       aria-labelledby="about-heading"
     >
-      <div className="container about__layout">
-        <div className={`about__intro reveal ${visible ? 'is-visible' : ''}`}>
-          <span className="section-eyebrow">Pourquoi nous choisir ?</span>
-          <h2 id="about-heading" className="section-title">
-            Une vision. Une équipe.
-            <br />
-            Un engagement.
-          </h2>
+      <div className="container">
+        <div className={`about__header reveal ${visible ? 'is-visible' : ''}`}>
+          <div>
+            <span className="section-eyebrow">Pourquoi nous choisir ?</span>
+            <h2 id="about-heading" className="section-title">
+              Une vision. Une équipe.
+              <br />
+              Un engagement.
+            </h2>
+          </div>
+
+          <p className="section-desc about__lead">
+            Chaque produit que nous construisons repose sur la clarté, la maîtrise technique et un
+            accompagnement humain de bout en bout.
+          </p>
         </div>
 
         <div className="about__values" role="list">
           {VALUES.map((item, index) => {
             const Icon = VALUE_ICONS[item.icon] || Zap;
             return (
-              <div
+              <article
                 key={item.id}
                 role="listitem"
-                className={`value-item reveal reveal-delay-${index + 1} ${visible ? 'is-visible' : ''}`}
+                className={`value-card reveal reveal-delay-${index + 1} ${visible ? 'is-visible' : ''}`}
               >
-                <div className="value-item__icon" aria-hidden="true">
-                  <Icon size={22} strokeWidth={1.85} />
+                <div className="value-card__top">
+                  <span className="value-card__num" aria-hidden="true">
+                    0{index + 1}
+                  </span>
+                  <div className="value-card__icon" aria-hidden="true">
+                    <Icon size={20} strokeWidth={1.8} />
+                  </div>
                 </div>
-                <h3 className="value-item__title">{item.title}</h3>
-                <p className="value-item__desc">{item.description}</p>
-              </div>
+
+                <h3 className="value-card__title">{item.title}</h3>
+                <p className="value-card__desc">{item.description}</p>
+              </article>
             );
           })}
         </div>

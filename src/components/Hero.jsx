@@ -67,11 +67,6 @@ export default function Hero({ onOpenUniverse }) {
 
       <div className="container hero__grid">
         <div className="hero__content">
-          <div className="hero__badge hero-anim hero-anim--1">
-            <span className="hero__badge-dot" aria-hidden="true" />
-            <span>Innovation • Excellence • Impact</span>
-          </div>
-
           <h1 id="hero-heading" className="hero__title">
             <span className="hero__line-mask">
               <span className="hero__line hero-anim hero-anim--2">Construisons ensemble</span>

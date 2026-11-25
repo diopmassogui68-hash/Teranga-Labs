@@ -143,7 +143,7 @@ export default function IntroSplash() {
 
       {/* Bottom Pure-CSS Progress Bar & Ref Counter */}
       <div className="intro-splash__footer">
-        <span className="intro-splash__caption">Innovation · Excellence · Impact</span>
+        <span className="intro-splash__caption">Téranga Labs</span>
         <div className="intro-splash__meter">
           <div className="intro-splash__bar">
             <span className="intro-splash__bar-fill" />

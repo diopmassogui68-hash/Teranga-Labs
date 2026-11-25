@@ -18,9 +18,9 @@
   --font-display: 'Plus Jakarta Sans', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
   --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
 
-  /* Layout */
-  --container-max: 1220px;
-  --container-pad: clamp(1.25rem, 4vw, 2.5rem);
+  /* Layout — Full Viewport Width */
+  --container-max: 100%;
+  --container-pad: clamp(1.25rem, 3.5vw, 3.75rem);
 
   /* Radii */
   --radius-sm: 10px;

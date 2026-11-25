@@ -14,7 +14,8 @@ export default function Contact({ onOpenContact }) {
     >
       <div className="container">
         <div className={`contact-banner reveal ${visible ? 'is-visible' : ''}`}>
-          {/* Subtle abstract monochrome curved waves in dark background */}
+          {/* Subtle architectural grid & abstract monochrome waves */}
+          <div className="contact-banner__grid" aria-hidden="true" />
           <svg
             className="contact-banner__waves"
             viewBox="0 0 1200 220"
@@ -44,7 +45,7 @@ export default function Contact({ onOpenContact }) {
             <path
               d="M 620 220 C 710 70, 860 -20, 1080 12"
               stroke="#FFFFFF"
-              strokeOpacity="0.18"
+              strokeOpacity="0.2"
               strokeWidth="1"
             />
           </svg>
@@ -65,7 +66,7 @@ export default function Contact({ onOpenContact }) {
           <div className="contact-banner__action">
             <button
               type="button"
-              className="btn-white"
+              className="btn-white btn-magnetic"
               onClick={() => onOpenContact()}
             >
               <span>Nous contacter</span>

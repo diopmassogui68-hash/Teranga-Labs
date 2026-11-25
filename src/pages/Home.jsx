@@ -32,7 +32,7 @@ export default function Home() {
         <About />
         <Contact onOpenContact={handleOpenContact} />
       </main>
-      <Footer />
+      <Footer onStartProject={handleOpenContact} />
 
       <ContactModal
         isOpen={contactOpen}
